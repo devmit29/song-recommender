@@ -1,9 +1,10 @@
 'use client'
 
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, Polyline } from "@react-google-maps/api";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useLoadScript } from "@react-google-maps/api";
 import { Button } from "./ui/button";
+import { useMapContext } from "@/providers/map-provider";
 
 const MapComponent = () => {
     const [fromInput, setFromInput] = useState(""); 
@@ -13,6 +14,7 @@ const MapComponent = () => {
     const fromRef = useRef<HTMLInputElement>(null); 
     const toRef = useRef<HTMLInputElement>(null); 
     const [weather, setWeather] = useState("");
+    const { isLoaded, loadError } = useMapContext();
 
     interface Song {
         title: string;
@@ -21,11 +23,6 @@ const MapComponent = () => {
         thumbnail: string;
     }
     const [songList, setSongList] = useState<Song[]>([]);
-
-    const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API || "",
-        libraries: ["places"], 
-    });
 
     useEffect(() => {
         if (isLoaded && !loadError) {
@@ -157,6 +154,16 @@ const MapComponent = () => {
                     options={defaultMapOptions}>
                     {fromLocation && <MarkerF position={fromLocation} label="A" />}
                     {toLocation && <MarkerF position={toLocation} label="B" icon={{ url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }} />}
+                {fromLocation.lat !== 0 && fromLocation.lng !== 0 && toLocation.lat !== 0 && toLocation.lng !== 0 && (
+                    <Polyline
+                        path={[fromLocation, toLocation]}
+                        options={{
+                            strokeColor: "#FF0000",
+                            strokeOpacity: 1.0,
+                            strokeWeight: 2,
+                        }}
+                    />
+                )}
                 </GoogleMap>
             </div>
             <div className="max-w-screen-2xl w-full mx-auto p-4 flex flex-col z-10 absolute top-10 left-1/2 transform -translate-x-1/2 justify-around">
