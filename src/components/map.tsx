@@ -118,6 +118,7 @@ const MapComponent = () => {
         try {
             const response = await fetch(url, options);
             const result = await response.json();
+            console.log(result);
             const weather = result.current.weather_descriptions[0];
             setWeather(weather);
             console.log(weather);
@@ -159,8 +160,8 @@ const MapComponent = () => {
                 </GoogleMap>
             </div>
             <div className="max-w-screen-2xl w-full mx-auto p-4 flex flex-col z-10 absolute top-10 left-1/2 transform -translate-x-1/2 justify-around">
-                <div className="flex justify-around">
-                    <div className="bg-slate-50 p-4 flex flex-col rounded-lg">
+                <div className="flex flex-col lg:flex-row justify-around">
+                    <div className="bg-slate-50 p-4 my-4 lg:my-0 flex flex-col rounded-lg">
                         <label htmlFor="from" className="text-black text-xl mb-2">From</label>
                         <input
                             id="from"
@@ -169,7 +170,7 @@ const MapComponent = () => {
                             value={fromInput}
                             type="text"
                             placeholder="Search for a place"
-                            className="w-96 p-2 rounded-lg"
+                            className="w-full lg:w-96 p-2 rounded-lg"
                             name="from"
                         />
                     </div>
@@ -182,7 +183,7 @@ const MapComponent = () => {
                             onChange={tohandleChange}
                             type="text"
                             placeholder="Search for a place"
-                            className="w-96 p-2 rounded-lg"
+                            className="w-full lg:w-96 p-2 rounded-lg"
                             name="to"
                         />
                     </div>
@@ -193,10 +194,10 @@ const MapComponent = () => {
                 <div id='recommend' className="hidden flex-row bg-slate-600/60 p-8 rounded-lg mt-16 overflow-x-auto whitespace-nowrap">
                     {songList.map((song, index) => (
                         <div key={index}
-                            onClick={() => window.open(`https://www.youtube.com/watch?v=${song.videoId}`, '_blank')}
-                            className="bg-slate-50 p-4 cursor-pointer flex flex-col rounded-lg min-w-64 m-4 ">
+                        onClick={() => window.open(`https://www.youtube.com/watch?v=${song.videoId}`, '_blank')}
+                        className="bg-slate-50 p-4 cursor-pointer flex flex-col rounded-lg min-w-64 m-4 ">
                             <img src={song.thumbnail} alt={song.title} className="rounded-lg" />
-                            <h3 className="text-black font-semibold overflow-ellipsis text-xl my-2 line-clamp-2">{song.title}</h3>
+                            <h3 className="text-black font-semibold  text-xl my-2 line-clamp-2 overflow-ellipsis">{song.title}</h3>
                             <p className="text-black line-clamp-2">{song.description}</p>
                         </div>
                     ))}
