@@ -11,10 +11,9 @@ export default function Home() {
     router.push("/search");
   }
   return (
-    <div className="w-full h-full relative">
-      <img className="-z-10 aspect-square xl:aspect-auto" src={travel.src} alt="Travel" />
-      <ReactTyped className="absolute left-1/2 top-1/4 transform -translate-x-1/2 -translate-y-1/2 text-red-500 bg-slate-200/40 rounded-lg p-2 text-7xl font-extrabold whitespace-nowrap" strings={["Hey There!", "Turn the forecast into a mood!", "Your weather-ready playlist is here!"]} typeSpeed={100} loop={false}/>
-      <Button className="absolute text-3xl p-8 rounded-lg left-1/2 bottom-1/4 transform -translate-x-1/2" onClick={handleClick}>Get Started</Button>
+    <div className="w-full min-h-screen relative bg-cover bg-center" style={{ backgroundImage: `url(${travel.src})` }}>
+      <ReactTyped className="absolute left-1/2 top-1/4 transform -translate-x-1/2 -translate-y-1/2 text-red-500 bg-slate-200/40 rounded-lg p-2 text-2xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold whitespace-nowrap" strings={["Hey There!", "Turn the forecast into a mood!", "Your weather-ready playlist is here!"]} typeSpeed={100} loop={false} />
+      <Button className="absolute text-xl md:text-2xl lg:text-3xl p-4 md:p-6 lg:p-8 rounded-lg left-1/2 bottom-1/4 transform -translate-x-1/2" onClick={handleClick}>Get Started</Button>
     </div>
   );
 }
